@@ -17,16 +17,15 @@ def main():
         # except:
         #     status = "Not connected"
         #     print(status)
-        #
         import gspread
         from oauth2client.service_account import ServiceAccountCredentials
 
-        # Waar wil ik toegang tot
+        # Waar ik toegang tot wil
         scope = ['https://spreadsheets.google.com/feeds' , 'https://www.googleapis.com/auth/drive' ]
         credentials = ServiceAccountCredentials.from_json_keyfile_name('Loods5-d71de8db7c29.json', scope)
         gc = gspread.authorize(credentials)
 
-
+        #open bestand als variabel worksheet           
         worksheet = gc.open('Leerlingen_data').sheet1
 
         laatste_leerling_ID = worksheet.col_values(1)
@@ -71,15 +70,17 @@ def main():
         worksheet.update_cell((beschikbaar_lln_id + 2), 4, Klas)
 
     New_lln()
-    # Nog erbij dat max aantal leerling
+    # Nog erbij dat max aantal leerling. evt
 
     print('Toevoegen nieuwe leerling met leerling-ID',beschikbaar_lln_id)
+    
+#     Vanaf hier begint beeldverwerking
     cam = cv2.VideoCapture(0)
     cam.set(3, 640) # set video width
     cam.set(4, 480) # set video height
 
+    # module voor herkennen die sneller maar minder effectief werkt 
     face_detector = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-
 
 
 
@@ -97,21 +98,18 @@ def main():
         for (x,y,w,h) in faces:
 
             cv2.rectangle(img, (x,y), (x+w,y+h), (255,0,0), 2)
+#           voordat hij 
             time.sleep(3)
             count += 1
-            # Miss dat hij ff 1 sec moet wachten met het nemen van een foto
-            # Save the captured image into the datasets folder
+            # Save de afbeeldingen in de folder dataset met .face_id
             cv2.imwrite("dataset/User." + str(face_id) + '.' + str(count) + ".jpg", gray[y:y+h,x:x+w])
-
             cv2.imshow('image', img)
 
-        k = cv2.waitKey(100) & 0xff # Press 'ESC' for exiting video
+        k = cv2.waitKey(100) & 0xff # Druk 'ESC' om te stoppen
         if k == 27:
             break
-        elif count >= 7: # Take 30 face sample and stop video
+        elif count >= 7: # Neemt nu 7 foto's 
              break
-
-    #         Error --> na 30 sec. geen gezicht exit()
 
     # cleanup
     print("\n", "Bye")
