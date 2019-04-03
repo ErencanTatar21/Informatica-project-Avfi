@@ -9,7 +9,7 @@ def main():
     print("Toevoegen nieuwe leerling")
     def New_lln():
         global beschikbaar_lln_id
-        # check wifi verbinding
+        # checkt wifi verbinding
         # import urllib
         # try:
         #     url = "https://www.google.com"
@@ -17,6 +17,9 @@ def main():
         # except:
         #     status = "Not connected"
         #     print(status)
+
+#       gspread werkt als API met google sheets
+#       Ipv een echte database wordt spreadsheet gebruikt, dit vanwege de snelheid ervan
         import gspread
         from oauth2client.service_account import ServiceAccountCredentials
 
@@ -25,16 +28,16 @@ def main():
         credentials = ServiceAccountCredentials.from_json_keyfile_name('Loods5-d71de8db7c29.json', scope)
         gc = gspread.authorize(credentials)
 
-        #open bestand als variabel worksheet           
+        #open bestand als variabel worksheet
+#       Het bestand Leerlingen_data is 1x aangemaakt en kan als de master worden gezien. 
+#       Bij het toevoegen wordt gegevens van leerlingen in dit bestand gestopt
         worksheet = gc.open('Leerlingen_data').sheet1
-
+        
         laatste_leerling_ID = worksheet.col_values(1)
         beschikbaar_lln_id = ( int(laatste_leerling_ID[-1]) + 1 )
         leerlingnummer = int(input('Wat is je leerlingnummer? : '))
         VoornaamenAchternaam = str(input("Wat is je voornaam en achternaam?: "))
         Klas = (input("In welke klas zit je?: "))
-
-
 
         def Uren_toevoegen():
             global uur_van_de_week
@@ -63,18 +66,19 @@ def main():
 
 
 
-        # row,colom
+        # werkt volgens row,colom
+#       update het bestand 
         worksheet.update_cell((beschikbaar_lln_id + 2), 1, beschikbaar_lln_id)
         worksheet.update_cell((beschikbaar_lln_id + 2), 2, leerlingnummer)
         worksheet.update_cell((beschikbaar_lln_id + 2), 3, VoornaamenAchternaam)
         worksheet.update_cell((beschikbaar_lln_id + 2), 4, Klas)
 
     New_lln()
-    # Nog erbij dat max aantal leerling. evt
+   
 
     print('Toevoegen nieuwe leerling met leerling-ID',beschikbaar_lln_id)
     
-#     Vanaf hier begint beeldverwerking
+#   Vanaf hier begint beeldverwerking
     cam = cv2.VideoCapture(0)
     cam.set(3, 640) # set video width
     cam.set(4, 480) # set video height
