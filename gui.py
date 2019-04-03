@@ -53,9 +53,9 @@ d = Button(window, text="Info presentie vandaag", bg="dimgray", fg="white",comma
 d.place(relx=0.5, rely=0.6, anchor=CENTER)
 
 
-def inforamtie_opvragen():
+def inforamtie_opvragen_1():
     print("nog helaas niet beschikbaar")
-f = Button(window, text="Info domein-uren leerling", bg="dimgray", fg="white",command=inforamtie_opvragen)
+f = Button(window, text="Info domein-uren leerling", bg="dimgray", fg="white",command=inforamtie_opvragen_1)
 f.place(relx=0.5, rely=0.7, anchor=CENTER)
 
 
