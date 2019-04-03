@@ -1,8 +1,9 @@
 def main():
     import time
     import datetime
-    # current = datetime.datetime.now()
-
+    
+#   dit kijkt over het een door de weekse dag is, zo ja dan activeer.
+    current = datetime.datetime.now()
     def SysteemActief():
         # tijd en input
         dag = datetime.datetime.today().weekday()
@@ -11,7 +12,8 @@ def main():
         AC = input("Activeer --> Y?: ")
         if (dag) <= 5 and now.hour >= 15 or AC.capitalize() == "Y":
             print("Activeer syteem")
-        #     werkt tot 16:00 van maandag t/m vrijdag
+        # werkt tot 16:00 van maandag t/m vrijdag
+            
             def herkenning():
                 import cv2
                 import numpy as np
@@ -22,15 +24,17 @@ def main():
                 faceCascade = cv2.CascadeClassifier(cascadePath);
                 font = cv2.FONT_HERSHEY_SIMPLEX
 
-                #iniciate id counter
+                # id counter
+#               id gaat gepaard met een leerling-id, zie bestand Leerling_Data
                 id = 1
-                # Maakt lijst van namen met LLn-ID en
+         
 
                 namen = []
                 def get_namen():
                     global X
                     global namen
                     namen = []
+#                   vraagt alle namen op en zet deze in namen=[]
                     import gspread
                     from oauth2client.service_account import ServiceAccountCredentials
                     scope = ['https://spreadsheets.google.com/feeds' , 'https://www.googleapis.com/auth/drive' ]
@@ -44,11 +48,11 @@ def main():
 
                 names = X
 
-                # Initialize and start realtime video capture
+                # video capture
                 cam = cv2.VideoCapture(0)
                 cam.set(3, 640) # set video widht
                 cam.set(4, 480) # set video height
-                # Define min window size to be recognized as a face
+                
                 minW = 0.1*cam.get(3)
                 minH = 0.1*cam.get(4)
 
@@ -106,11 +110,11 @@ def main():
 
 
 
-                    k = cv2.waitKey(10) & 0xff # Press 'ESC' for exiting video
+                    k = cv2.waitKey(10) & 0xff #  'ESC' om te stoppen
                     if k == 27:
                         break
-                # Do a bit of cleanup
-                print("\n Exiting Program ")
+                #
+                print("\n Exit")
                 cam.release()
                 cv2.destroyAllWindows()
             herkenning()
