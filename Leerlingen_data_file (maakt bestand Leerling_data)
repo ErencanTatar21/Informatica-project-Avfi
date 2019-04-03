@@ -1,3 +1,5 @@
+# Dit maakt het spreadsheetbestand LeerlingData, maar dit kan ook net zo gemakkelijk handmatig.
+
 import time
 import datetime
 
