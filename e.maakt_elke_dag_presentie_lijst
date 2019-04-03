@@ -1,5 +1,3 @@
-# Dit maakt het spreadsheetbestand LeerlingData, maar dit kan ook net zo gemakkelijk handmatig.
-
 import time
 import datetime
 
@@ -16,7 +14,9 @@ y = str(now.date())
 G = str(("Week:",x,now.strftime("%A"),y,"domein6"))
 sh = gc.create(str(G))
 sh.share('513442@lln.corlaercollege.nl', perm_type='user', role='writer', email_message='False')
-# blijkbaar max. 50 / dag
+# Voeg link bij voor accces
+# sh.share('rkoppelaar@corlaercollege.nl', perm_type='user', role='writer', email_message='False')
+# blijkbaar limiet van 50 / dag
 
 def sheets_aanmaken():
     # Kan helaas echt niet makkelijker of beter
@@ -69,42 +69,4 @@ def sheets_aanmaken():
     worksheet7uur.update_acell('C2', 'Present')
     worksheet7uur.update_acell('D2', 'Ziek')
 sheets_aanmaken()
-
-
-worksheet = gc.open('Leerlingen_data').sheet1
-laatste_leerling_ID = worksheet.col_values(1)
-beschikbaar_lln_id = ( int(laatste_leerling_ID[-1]) + 3 )
-
-for i in range(3,beschikbaar_lln_id):
-    values_list = worksheet.row_values(i)
-    print(values_list)
-    print("♠ ♣ ♦ ☺ ☻ ♥")
-    x = values_list[2]
-    y = values_list[3]
-
-worksheet = gc.open('TEST_avfi').worksheet("vis")
-worksheet = gc.open('TEST_avfi').worksheet("vis")
-worksheet = gc.open('TEST_avfi').worksheet("vis")
-worksheet = gc.open('TEST_avfi').worksheet("vis")
-worksheet.append_row(['Leerling_ID','Leerling_nummer','Voornaam en Achternaam','Klas'])
-
-# ding = [i for i, x in enumerate(values_list) if x == 'Zelfstudie']
-# for z in ding:
-#     if (int(z)) == 4:
-#         # 4 = Ma_1
-
-        #     sh.append_row([0,0,'0','0','0'])
-        # new_sheet()
-
-
-
-            # sh.append_row(['0','0','0','0','0'])
-            # sh.append_row([x,y])
-
-
-
-
-           # sh = sh.worksheet("Domein 6: 1e uur")
-
-            # print(x,y)
 
